@@ -1,0 +1,76 @@
+service: kyonomo
+
+plugins:
+  - serverless-layers
+  - serverless-offline
+
+custom:
+  serverless-layers:
+    layersDeploymentBucket: <バケットの名称を入力>
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: <リージョンを入力>
+  environment:
+    TZ: Asia/Tokyo
+    INVITATION_TABLE_NAME: "invitation"
+    ANSWER_TABLE_NAME: "answer"
+    API_KEY: <kyonomo-backendアプリのAPIKEYを設定>
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: "arn:aws:dynamodb:*:*:table/*"
+
+package:
+  individually: true
+  include:
+    - dist/**
+  exclude:
+    - "**"
+functions:
+  index:
+    handler: dist/index.handler
+    events:
+      - http:
+          cors: true
+          path: "/"
+          method: any
+      - http:
+          cors: true
+          path: "{proxy+}"
+          method: any
+
+resources:
+  Resources:
+    InvitaionTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: "invitation"
+    answerTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: subId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: subId
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: "answer"

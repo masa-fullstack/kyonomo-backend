@@ -1,0 +1,16 @@
+{
+  "type": "postgres",
+  "host": "db",
+  "port": 5432,
+  "username": "root",
+  "password": "root",
+  "synchronize": false,
+  "logging": true,
+  "entities": ["dist/entities/**/*.entity.js"],
+  "migrations": ["dist/migrations/**/*.js"],
+  "cli": {
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+  }
+}
