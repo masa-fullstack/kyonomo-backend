@@ -19,13 +19,22 @@ export class InvitationController {
   @Post()
   async createInvitation(@Body() body, @Req() request: Request) {
     this.checkApiKey(request);
-    return this.service.createInvitation(body);
+    return await this.service.createInvitation(body);
   }
 
   @Get()
   async getInvitation(@Query() query: { id: string }, @Req() request: Request) {
     this.checkApiKey(request);
-    return this.service.getInvitation(query.id);
+    return await this.service.getInvitation(query.id);
+  }
+
+  @Get("/check")
+  async checkInvitation(
+    @Query() query: { id: string },
+    @Req() request: Request
+  ) {
+    this.checkApiKey(request);
+    return await this.service.checkInvitation(query.id);
   }
 
   private checkApiKey(request: Request): void {

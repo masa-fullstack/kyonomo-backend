@@ -168,7 +168,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/kyonomo/dev/1624552284449-2021-06-24T16:31:24.449Z/index.zip"
+          "S3Key": "serverless/kyonomo/dev/1624718591771-2021-06-26T14:43:11.771Z/index.zip"
         },
         "Handler": "dist/index.handler",
         "Runtime": "nodejs12.x",
@@ -197,14 +197,14 @@
         "IndexLogGroup"
       ]
     },
-    "IndexLambdaVersionlSada5EBIfm3BuTa4ijYNQSXFtPEAw460ghoDREIww": {
+    "IndexLambdaVersionjkZfCYQdzKQoKU6KG5j7v2prfPnlLe3ofFutCTdK4E": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "IndexLambdaFunction"
         },
-        "CodeSha256": "Zk00/kXAjYK1g7PKuNzvFF433N5z6SriFExxIXodkgk="
+        "CodeSha256": "VvHrNuicgixSOyiVM8DbsA8WhpThKbyi2AVvEy2nJaA="
       }
     },
     "ApiGatewayRestApi": {
@@ -416,7 +416,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1624552281124": {
+    "ApiGatewayDeployment1624718588532": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -533,7 +533,7 @@
     "IndexLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "IndexLambdaVersionlSada5EBIfm3BuTa4ijYNQSXFtPEAw460ghoDREIww"
+        "Ref": "IndexLambdaVersionjkZfCYQdzKQoKU6KG5j7v2prfPnlLe3ofFutCTdK4E"
       },
       "Export": {
         "Name": "sls-kyonomo-dev-IndexLambdaFunctionQualifiedArn"

@@ -1,21 +1,24 @@
 import * as AWS from "aws-sdk";
 import { InternalServerErrorException } from "@nestjs/common";
+import { Answer } from "./answer.types";
 
 export class AnswerRepository {
   private tableName = process.env.ANSWER_TABLE_NAME;
 
-  async create(answer): Promise<AWS.DynamoDB.DocumentClient.UpdateItemOutput> {
-    return await new AWS.DynamoDB.DocumentClient()
+  async create(answer): Promise<Answer> {
+    const item: Answer = {
+      id: answer.id,
+      subId: answer.subId,
+      status: answer.status,
+      text: answer.text,
+      referrer: answer.referrer,
+    };
+
+    const res = await new AWS.DynamoDB.DocumentClient()
       .put(
         {
           TableName: this.tableName,
-          Item: {
-            id: answer.id,
-            subId: answer.subId,
-            status: answer.status,
-            text: answer.text,
-            referrer: answer.referrer,
-          },
+          Item: item,
         },
         (err, data) => {
           if (err) {
@@ -25,6 +28,8 @@ export class AnswerRepository {
         }
       )
       .promise();
+
+    return item;
   }
 
   async findAll(id: string): Promise<AWS.DynamoDB.DocumentClient.ScanOutput> {

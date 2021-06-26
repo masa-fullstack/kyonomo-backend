@@ -19,13 +19,13 @@ export class AnswerController {
   @Post()
   async createAnswer(@Body() body, @Req() request: Request) {
     this.checkApiKey(request);
-    return this.service.createAnswer(body);
+    return await this.service.createAnswer(body);
   }
 
   @Get()
   async getAnswers(@Query() query: { id: string }, @Req() request: Request) {
     this.checkApiKey(request);
-    return this.service.getAnswers(query.id);
+    return await this.service.getAnswers(query.id);
   }
 
   private checkApiKey(request: Request): void {

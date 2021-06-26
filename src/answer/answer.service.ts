@@ -19,7 +19,7 @@ export class AnswerService {
 
     if (
       invitation.limitDate < nowDate ||
-      (invitation.limitDate = nowDate && invitation.limitTime < nowTime)
+      (invitation.limitDate === nowDate && invitation.limitTime < nowTime)
     ) {
       return JSON.stringify({ error: "回答期限が過ぎています" });
     }
